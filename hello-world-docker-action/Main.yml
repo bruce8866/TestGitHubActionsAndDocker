@@ -1,0 +1,21 @@
+name: Use Custom Docker Action
+
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to say hello
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Hello world action step
+        id: hello
+        uses: ./hello-world-docker-action
+        with:
+          who-to-greet: 'Bruce'
+
+      # 使用來自 hello 步驟的輸出
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
